@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "516592822158-djp35svul5d4v10up25up9ovcqg7qama.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.facebook.cupid",
+            "certificate_hash": "e491850773aff3570c7091f6040fe0e7f2f7ce94"
+          }
+        },
+        {
           "client_id": "516592822158-583fl6r2s4j943qfst13c1krvo616fj5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516592822158-583fl6r2s4j943qfst13c1krvo616fj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
