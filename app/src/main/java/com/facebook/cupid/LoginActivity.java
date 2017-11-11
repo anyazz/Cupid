@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         // Initialize Context
         context = this;
 
@@ -61,11 +60,10 @@ public class LoginActivity extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            Intent i = new Intent(context, MainActivity.class);
-            context.startActivity(i);
+            onLoginSuccess();
         }
 
-        // Initialize Facebook Login button
+    // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
@@ -106,6 +104,9 @@ public class LoginActivity extends AppCompatActivity  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            onLoginSuccess();
+        }
        // updateUI(currentUser);
     }
 
