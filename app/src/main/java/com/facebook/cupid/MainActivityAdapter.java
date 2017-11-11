@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static android.support.v7.recyclerview.R.styleable.RecyclerView;
+
 /**
  * Created by Emily on 11/11/2017.
  */
