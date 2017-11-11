@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.content.Intent;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
+//                    Intent profile = new Intent(MainActivity.this, ProfileActivity.class);
+//                    startActivity(profile);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+//                    Intent profile = new Intent(MainActivity.this, NotifsActivity.class);
+//                    startActivity(profile);
                     return true;
             }
             return false;
