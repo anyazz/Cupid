@@ -10,19 +10,28 @@ import org.json.JSONObject;
  * Created by Emily on 11/11/2017.
  */
 // object class
-public class Friend implements Parcelable{
+public class Friend{
     // name
     // picture
-    String name;
-    String pictureUrl;
+    private long fbUserID;
+    private String name;
+    private String pictureUrl;
 
     public Friend(){}
 
-    public static Friend fromJSON(JSONObject object) throws JSONException{
-        Friend friend = new Friend();
-        friend.name = object.getString("Name");
-        friend.pictureUrl = object.getString("URL");
-        return friend;
+    // for retrieving facebook data
+    public static Friend fromJSON(JSONObject json) {
+        Friend fbFriend = new Friend();
+        try {
+            fbFriend.setFbUserID(json.getLong("id"));
+            fbFriend.setName(json.getString("name"));
+            JSONObject pictureData = json.getJSONObject("picture").getJSONObject("data");
+            fbFriend.setPictureUrl(pictureData.getString("url"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return fbFriend;
     }
 
     public String getName(){
@@ -32,13 +41,20 @@ public class Friend implements Parcelable{
         return this.pictureUrl;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+
+    public long getFbUserID() {
+        return fbUserID;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void setFbUserID(long fbUserID) {
+        this.fbUserID = fbUserID;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }
