@@ -1,5 +1,8 @@
 package com.facebook.cupid;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,7 +10,7 @@ import org.json.JSONObject;
  * Created by Emily on 11/11/2017.
  */
 // object class
-public class Friend {
+public class Friend implements Parcelable{
     // name
     // picture
     String name;
@@ -27,5 +30,15 @@ public class Friend {
     }
     public String getPictureUrl(){
         return this.pictureUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
