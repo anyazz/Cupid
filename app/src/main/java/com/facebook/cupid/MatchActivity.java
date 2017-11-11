@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Match_Activity extends AppCompatActivity {
+public class MatchActivity extends AppCompatActivity {
     public Image imFirst;
     public TextView tvFirst;
     public  TextView tvFirstBio;
@@ -22,7 +22,7 @@ public class Match_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match_);
+        setContentView(R.layout.activity_match);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
