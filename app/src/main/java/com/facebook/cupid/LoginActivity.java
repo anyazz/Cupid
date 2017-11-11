@@ -1,5 +1,6 @@
 package com.facebook.cupid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity  {
     CallbackManager mCallbackManager;
 
     private FirebaseAuth mAuth;
+    Context context;
 
 
     static final String TAG = LoginActivity.class.getSimpleName();
@@ -52,13 +54,16 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize Context
+        context = this;
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -112,6 +117,7 @@ public class LoginActivity extends AppCompatActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            onLoginSuccess();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -124,6 +130,13 @@ public class LoginActivity extends AppCompatActivity  {
                         // ...
                     }
                 });
+    }
+
+    public void onLoginSuccess() {
+        Intent i = new Intent(context, MainActivity.class);
+
+        context.startActivity(i);
+
     }
 
 
