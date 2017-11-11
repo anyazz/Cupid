@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "516592822158",
+    "firebase_url": "https://cupid-70c86.firebaseio.com",
+    "project_id": "cupid-70c86",
+    "storage_bucket": "cupid-70c86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516592822158:android:bd455a269b88c60c",
+        "android_client_info": {
+          "package_name": "com.facebook.cupid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516592822158-583fl6r2s4j943qfst13c1krvo616fj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAELFJ-jQUjOCUmSKEtZ56oDhgAklHkpE4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

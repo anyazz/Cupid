@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Match_Activity extends AppCompatActivity {
-    public ImageButton imFirst;
+
+public class MatchActivity extends AppCompatActivity {
+    public ImageView imFirst;
     public TextView tvFirstName;
     public  TextView tvFirstBio;
     public ImageButton imSecond;
@@ -23,10 +25,10 @@ public class Match_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_match_);
+        setContentView(R.layout.activity_match);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        imFirst = (ImageButton) findViewById(R.id.imFirst);
+        imFirst = (ImageView) findViewById(R.id.imFirst);
         tvFirstName = (TextView) findViewById(R.id.tvFirstName);
         tvFirstBio = (TextView) findViewById(R.id.tvFirstBio);
         imSecond = (ImageButton) findViewById(R.id.imSecond);

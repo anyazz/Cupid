@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.facebook.cupid.Match_Activity"
-    tools:showIn="@layout/activity_match_">
+    tools:showIn="@layout/activity_match">
 
     <TextView
         android:id="@+id/tvFirstBio"
@@ -17,7 +17,7 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="63dp" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imSecond"
         android:layout_width="108dp"
         android:layout_height="98dp"
@@ -25,7 +25,7 @@
         tools:layout_editor_absoluteX="265dp"
         tools:layout_editor_absoluteY="125dp" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/imFirst"
         android:layout_width="108dp"
         android:layout_height="98dp"
