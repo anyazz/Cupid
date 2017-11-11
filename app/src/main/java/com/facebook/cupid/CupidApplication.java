@@ -27,51 +27,57 @@ public class CupidApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        facebookFriends = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
     }
 
     public static ArrayList<Friend> getFacebookFriends() {
-
-        facebookFriends = new ArrayList<>();
-        // start a new thread to execute the runnable codeblock
-        Thread thread = new Thread( ) {
-            @Override
-            public void run() {
-
-                // the code to execute when the runnable is processed by a thread
-                FacebookClient client = CupidApplication.getFacebookRestClient();
-
-                client.getFriendsUsingApp(new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        // gets friends ids
-                        try {
-                            JSONArray friends = response.getJSONObject().getJSONArray("data");
-                            for (int i = 0; i < friends.length(); i++) {
-                                Friend friend = Friend.fromJSON(friends.getJSONObject(i));
-                                facebookFriends.add(friend);
-                            }
-
-                        } catch(JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        };
-
-        // start thread
-        thread.start();
-        // set first load to false for future getFacebookFriends() call
-
-        // wait for the thread to return the facebook API request
-        try {
-            thread.join(0);
-        } catch (InterruptedException i) {
-            i.getMessage();
+        if (facebookFriends.size() != 0)
+        {
+            return facebookFriends;
         }
-        // return your fb friends' ids
-        return facebookFriends;
+        else {
+
+            // start a new thread to execute the runnable codeblock
+            Thread thread = new Thread( ) {
+                @Override
+                public void run() {
+
+                    // the code to execute when the runnable is processed by a thread
+                    FacebookClient client = CupidApplication.getFacebookRestClient();
+
+                    client.getFriendsUsingApp(new GraphRequest.Callback() {
+                        public void onCompleted(GraphResponse response) {
+                            // gets friends ids
+                            try {
+                                JSONArray friends = response.getJSONObject().getJSONArray("data");
+                                for (int i = 0; i < friends.length(); i++) {
+                                    Friend friend = Friend.fromJSON(friends.getJSONObject(i));
+                                    facebookFriends.add(friend);
+                                }
+
+                            } catch(JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            };
+
+            // start thread
+            thread.start();
+            // set first load to false for future getFacebookFriends() call
+
+            // wait for the thread to return the facebook API request
+            try {
+                thread.join(0);
+            } catch (InterruptedException i) {
+                i.getMessage();
+            }
+            // return your fb friends' ids
+            return facebookFriends;
+        }
     }
 
 
@@ -82,5 +88,7 @@ public class CupidApplication extends Application {
         }
         return facebookClient;
     }
+
+
 
 }
