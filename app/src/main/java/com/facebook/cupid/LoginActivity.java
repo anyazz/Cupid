@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         // Initialize Context
         context = this;
 
@@ -64,6 +63,11 @@ public class LoginActivity extends AppCompatActivity  {
 
             context.startActivity(i);
         }
+
+        if (mAuth.getCurrentUser() != null) {
+            onLoginSuccess();
+        }
+
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
