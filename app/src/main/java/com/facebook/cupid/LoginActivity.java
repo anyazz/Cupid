@@ -1,5 +1,6 @@
 package com.facebook.cupid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity  {
     CallbackManager mCallbackManager;
 
     private FirebaseAuth mAuth;
+    Context context;
 
 
     static final String TAG = LoginActivity.class.getSimpleName();
@@ -52,13 +54,16 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize Context
+        context = this;
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
