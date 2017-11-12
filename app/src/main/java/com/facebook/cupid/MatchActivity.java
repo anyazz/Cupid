@@ -51,6 +51,20 @@ public class MatchActivity extends AppCompatActivity {
         etComment = (EditText) findViewById(R.id.etComment);
         btComment = (Button) findViewById(R.id.btComment);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        User user_1 = Parcels.unwrap(getIntent().getParcelableExtra("friend1"));
+        User user_2 = Parcels.unwrap(getIntent().getParcelableExtra("friend2"));
+        Glide.with(this)
+                .load(user_1.pictureUrl)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(ivFirst);
+        Glide.with(this)
+                .load(user_2.pictureUrl)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(ivSecond);
+        tvFirstName.setText(user_1.name);
+        tvFirstBio.setText(user_1.school + user_1.age);
+        tvSecondName.setText(user_2.name);
+        tvSecondBio.setText(user_2.school + user_2.age);
 
         btComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,20 +80,7 @@ public class MatchActivity extends AppCompatActivity {
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
         View v = super.onCreateView(name, context, attrs);
-        User user_1 = Parcels.unwrap(getIntent().getParcelableExtra("friend1"));
-        User user_2 = Parcels.unwrap(getIntent().getParcelableExtra("friend2"));
-        Glide.with(this)
-                .load(user_1.pictureUrl)
-                .bitmapTransform(new CropCircleTransformation(this))
-                .into(ivFirst);
-        Glide.with(this)
-                .load(user_2.pictureUrl)
-                .bitmapTransform(new CropCircleTransformation(this))
-                .into(ivSecond);
-        tvFirstName.setText(user_1.name);
-        tvFirstBio.setText(user_1.school + user_1.age);
-        tvSecondName.setText(user_2.name);
-        tvSecondBio.setText(user_2.school + user_2.age);
+
         return v;
     }
 }
