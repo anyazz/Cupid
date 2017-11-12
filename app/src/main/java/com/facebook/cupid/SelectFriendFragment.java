@@ -82,7 +82,6 @@ public class SelectFriendFragment extends Fragment {
 
         friendName.setText(friend.getName());
 
-
          Glide.with(this)
                 .load(friend.getPictureUrl())
                 .bitmapTransform(new CropCircleTransformation(getContext()))

@@ -12,7 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.cupid.models.User;
+
 public class MainActivity extends AppCompatActivity {
+    private User friend1;
+
+    public User getFriend1() {
+        return friend1;
+    }
+
+    public void setFriend1(User friend1) {
+        this.friend1 = friend1;
+    }
 
     private TextView mTextMessage;
     RecyclerView rvFriends;
@@ -46,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+
 
         ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
