@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.Profile;
 import com.facebook.cupid.models.Suggestion;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -55,11 +56,13 @@ public class NotificationFragment extends Fragment {
 
                 Suggestion temp = new Suggestion(f1, f2, f1a, f2a, message, mm);
 
-                long myId = Long.parseLong(CupidApplication.getmUser().getProviderId());
+                long myId = Long.parseLong(Profile.getCurrentProfile().getId());
 
-                if(myId == f1 || myId == f2){
+                if(myId == mm){
                     suggestions.add(temp);
                 }
+
+                notificationAdapter.notifyDataSetChanged();
 
             }
 
@@ -83,9 +86,6 @@ public class NotificationFragment extends Fragment {
 
             }
         });
-
-        notificationAdapter = new NotificationAdapter(suggestions);
-
     }
 
     @Override
@@ -95,6 +95,7 @@ public class NotificationFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_notification, container, false);
         rvNotifications = (RecyclerView) v.findViewById(R.id.rv_notification_list);
         rvNotifications.setLayoutManager(new LinearLayoutManager(getContext()));
+        notificationAdapter = new NotificationAdapter(suggestions);
         rvNotifications.setAdapter(notificationAdapter);
         return v;
     }
