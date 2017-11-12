@@ -60,6 +60,12 @@ public class LoginActivity extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
 
 
+        if (mAuth.getCurrentUser() != null) {
+            CupidApplication.getFacebookFriends();
+            onLoginSuccess();
+        }
+
+
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -136,7 +142,9 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     public void onLoginSuccess() {
-        Intent i =  new Intent(this, MainActivity.class);
+
+        Intent i = new Intent(context, MainActivity.class);
+
         context.startActivity(i);
     }
 
