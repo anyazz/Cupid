@@ -59,10 +59,6 @@ public class LoginActivity extends AppCompatActivity  {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
-            onLoginSuccess();
-        }
-
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
@@ -105,6 +101,10 @@ public class LoginActivity extends AppCompatActivity  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            onLoginSuccess();
+        }
        // updateUI(currentUser);
     }
 
@@ -133,6 +133,11 @@ public class LoginActivity extends AppCompatActivity  {
                         // ...
                     }
                 });
+    }
+
+    public void onLoginSuccess() {
+        Intent i =  new Intent(this, MainActivity.class);
+        context.startActivity(i);
     }
 
 
