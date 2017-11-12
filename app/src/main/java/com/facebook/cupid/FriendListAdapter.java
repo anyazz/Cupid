@@ -22,6 +22,8 @@ import java.util.ArrayList;
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
     ArrayList<Friend> friends;
     Context context;
+    boolean firstFriendPicked;
+    Friend firstFriend;
 
     public FriendListAdapter(ArrayList<Friend> friends){this.friends = friends;}
     @Override
@@ -38,6 +40,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
         Friend friend = friends.get(position);
         String name = friend.getName();
         holder.tvName.setText(name);
+        firstFriendPicked = false;
         Glide.with(context).load(friend.getPictureUrl()).into(holder.ivPicture);
     }
 
@@ -67,8 +70,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
                 args.putParcelable("friend", friend);
                 SelectFriendFragment fragment = SelectFriendFragment.newInstance(args);
                 FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment);
+                transaction.replace(R.id.friendContainer, fragment);
                 transaction.commit();
+                firstFriendPicked = true;
+                firstFriend = friend;
+
 
                 // create intent for the new activity
                 // Intent intent = new Intent(context, OptionsActivity.class);
