@@ -5,7 +5,14 @@ import android.content.Context;
 
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.cupid.models.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,14 +28,42 @@ public class CupidApplication extends Application {
     private static Context context;
     private static FacebookClient facebookClient;
     private static ArrayList<User> facebookFriends;
-    FirebaseAuth mAuth;
+    private static FirebaseUser mUser;
 
+    private static boolean isNewUser;
+
+    private static FirebaseAuth mAuth;
+
+    private static FacebookClient fbClient;
+
+
+    private static DatabaseReference mDatabase;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAuth = FirebaseAuth.getInstance();
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("messages");
+        myRef.setValue("Hello, World!");
+
+
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
     }
 
     public static ArrayList<User> getFacebookFriends() {
@@ -71,15 +106,44 @@ public class CupidApplication extends Application {
                 } catch (InterruptedException i) {
                     i.getMessage();
                 }
+
+
+                // register new user
+                //if (isNewUser) {
+                /*
+                long fbUid;
+                String name;
+                String profileImageUrl;
+
+                FacebookClient client = getFacebookRestClient();
+                client.getMyInfo(new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        JSONObject userJSON = response.getJSONObject();
+
+                        // gets friends ids
+                        try {
+                            fbUid = userJSON.getLong("id");
+                            name = userJSON.getString("name");
+                            // fbUid = userJSON.getLong("id");
+                            profileImageUrl = userJSON.getJSONObject("picture")
+                                    .getJSONObject("data")
+                                    .getString("url");
+
+
+                        } catch(JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }); */
+
+                //FirebaseUser user = getmUser();
+                //writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(),facebookFriends);
+                //}
             }
-            // return your fb friends' ids
-            return facebookFriends;
-
+                // return your fb friends' ids
+                return facebookFriends;
     }
 
-    public static ArrayList<User> getFriends() {
-        return facebookFriends;
-    }
 
     // facebook client singleton
     public static FacebookClient getFacebookRestClient() {
@@ -89,6 +153,40 @@ public class CupidApplication extends Application {
         return facebookClient;
     }
 
+    public static DatabaseReference getDatabase() {
+        if (mDatabase == null) {
+            mDatabase =  (DatabaseReference) FirebaseDatabase.getInstance().getReference();
+        }
+
+        return mDatabase;
+    }
+
+    public static void writeNewUser(String userId, String name, String pictureUrl, ArrayList<User> friends) {
+        User user = new User(name, pictureUrl, friends);
+        DatabaseReference mDatabase = CupidApplication.getDatabase();
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+
+    public static void setIsNewUser(boolean isNewUser) {
+        CupidApplication.isNewUser = isNewUser;
+    }
+
+    public static FirebaseUser getmUser() {
+        if (mUser == null) {
+            getmAuth();
+            mAuth.getCurrentUser();
+        }
+        return mUser;
+    }
+
+    public static FirebaseAuth getmAuth() {
+        if (mAuth == null) {
+            // Initialize Firebase Auth
+            mAuth = FirebaseAuth.getInstance();
+        }
+        return mAuth;
+    }
 
 
 }

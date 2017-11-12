@@ -59,12 +59,26 @@ public class LoginActivity extends AppCompatActivity  {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+
+        if (mAuth.getCurrentUser() != null) {
+            Intent i = new Intent(context, MainActivity.class);
+
+            context.startActivity(i);
+        }
+
         if (mAuth.getCurrentUser() != null) {
             CupidApplication.getFacebookFriends();
+
+            FirebaseUser user = mAuth.getCurrentUser();
+
+            //TODO check for first login
+            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
+
             onLoginSuccess();
         }
 
-    // Initialize Facebook Login button
+
+        // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
@@ -125,8 +139,8 @@ public class LoginActivity extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            //Uri name = user.get
-                            CupidApplication.getFacebookFriends();
+                            //TODO check for first login
+                            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
 
                             onLoginSuccess();
                             //updateUI(user);
@@ -149,6 +163,10 @@ public class LoginActivity extends AppCompatActivity  {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.signOut();
+    }
 }
 

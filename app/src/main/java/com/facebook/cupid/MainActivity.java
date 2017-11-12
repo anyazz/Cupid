@@ -1,9 +1,11 @@
 package  com.facebook.cupid;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +16,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
-    MainActivityAdapter adapter;
-    ArrayList<User> friends;
+
     private TextView mTextMessage;
     RecyclerView rvFriends;
     Context context;
+    FriendListFragment fragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -27,14 +29,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_profile:
-//                    Intent profile = new Intent(MainActivity.this, ProfileActivity.class);
-//                    startActivity(profile);
+                    mTextMessage.setText(R.string.title_profile);
                     return true;
                 case R.id.navigation_notifications:
-//                    Intent profile = new Intent(MainActivity.this, NotifsActivity.class);
-//                    startActivity(profile);
+                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -47,25 +48,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-        friends = CupidApplication.getFacebookFriends();
-        adapter = new MainActivityAdapter(friends);
-
-        rvFriends = (RecyclerView) findViewById(R.id.rv_friends_list);
-        rvFriends.setLayoutManager(new LinearLayoutManager(this));
-        rvFriends.setAdapter(adapter);
+      //  friends = CupidApplication.getFacebookFriends();
+        Bundle args = new Bundle();
+        fragment = new FriendListFragment();
+        FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();
+      //  adapter = new MainActivityAdapter(friends);
+      //  rvFriends = (RecyclerView) findViewById(R.id.rv_friends_list);
+      //  rvFriends.setLayoutManager(new LinearLayoutManager(this));
+      //  rvFriends.setAdapter(adapter);
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public ArrayList<User> sortFriends(ArrayList<User> friends) {
-        Collections.sort(friends, new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o1.getSchool().compareToIgnoreCase(o2.getSchool());
-            }
-        });
-        return friends;
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 
 }
