@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.facebook.cupid.models.CustomViewPager;
 
 import com.facebook.cupid.models.User;
 
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     FriendListFragment fragment;
     PagerAdapter pagerAdapter;
+
+    public DatabaseReference mDatabase;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
 
-
-        ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
+        CustomViewPager vpPager = (CustomViewPager) findViewById(R.id.customviewpager);
+        vpPager.setPagingEnabled(false);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void onFragmentInteraction(Uri uri){

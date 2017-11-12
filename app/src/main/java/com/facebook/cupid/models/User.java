@@ -3,11 +3,11 @@ package com.facebook.cupid.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -107,6 +107,11 @@ public class User implements Parcelable {
 
     public int getAge() {
         return age;
+    }
+
+    public User(Map map){
+        this.name = (String) map.get("username");
+        this.pictureUrl = (String) map.get("pictureUrl");
     }
 
     @Override
