@@ -1,6 +1,7 @@
 package  com.facebook.cupid;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,11 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private TextView mTextMessage;
+    RecyclerView rvFriends;
     Context context;
     FriendListFragment fragment;
     PagerAdapter pagerAdapter;
@@ -53,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         vpPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+    }
+
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 
 }

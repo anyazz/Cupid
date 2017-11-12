@@ -61,7 +61,19 @@ public class LoginActivity extends AppCompatActivity  {
 
 
         if (mAuth.getCurrentUser() != null) {
+            Intent i = new Intent(context, MainActivity.class);
+
+            context.startActivity(i);
+        }
+
+        if (mAuth.getCurrentUser() != null) {
             CupidApplication.getFacebookFriends();
+
+            FirebaseUser user = mAuth.getCurrentUser();
+
+            //TODO check for first login
+            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
+
             onLoginSuccess();
         }
 
@@ -107,7 +119,6 @@ public class LoginActivity extends AppCompatActivity  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser != null) {
             onLoginSuccess();
         }
@@ -127,6 +138,11 @@ public class LoginActivity extends AppCompatActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            //TODO check for first login
+                            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
+
+                            onLoginSuccess();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -142,12 +158,15 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     public void onLoginSuccess() {
-
         Intent i = new Intent(context, MainActivity.class);
-
         context.startActivity(i);
+
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.signOut();
+    }
 }
 

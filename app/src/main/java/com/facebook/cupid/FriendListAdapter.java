@@ -1,30 +1,35 @@
 package com.facebook.cupid;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
+
+import com.facebook.cupid.models.User;
+
 
 import java.util.ArrayList;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-import static java.security.AccessController.getContext;
+
 
 /**
  * Created by Emily on 11/11/2017.
  */
 
 public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ViewHolder> {
-    ArrayList<Friend> friends;
+    ArrayList<User> friends;
     Context context;
 
-    public FriendListAdapter(ArrayList<Friend> friends){this.friends = friends;}
+    public FriendListAdapter(ArrayList<User> friends){this.friends = friends;}
     @Override
     public FriendListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -36,15 +41,18 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
 
     @Override
     public void onBindViewHolder(FriendListAdapter.ViewHolder holder, int position) {
-        Friend friend = friends.get(position);
+        User friend = friends.get(position);
         String name = friend.getName();
+        String bio = friend.getSchool();
+        if (bio != null) {
+            holder.tvBio.setText(bio);
+        }
         holder.tvName.setText(name);
-        //Glide.with(context).load(friend.getPictureUrl()).into(holder.ivPicture);
+
         Glide.with(context)
                 .load(friend.getPictureUrl())
                 .bitmapTransform(new CropCircleTransformation(context))
                 .into(holder.ivPicture);
-
     }
 
     @Override
@@ -55,10 +63,12 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvName;
         ImageView ivPicture;
+        TextView tvBio;
         public ViewHolder(View itemView){
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             ivPicture =  (ImageView) itemView.findViewById(R.id.ivPicture);
+            tvBio = (TextView) itemView.findViewById(R.id.tvBio);
             itemView.setOnClickListener(this);
         }// constructor
 
@@ -68,7 +78,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
             // make sure the position is valid, i.e. actually exists in the view
             if (position != android.support.v7.widget.RecyclerView.NO_POSITION) {
                 // get the movie at the position, this won't work if the class is static
-                Friend friend = friends.get(position);
+                User friend = friends.get(position);
+                Bundle args = new Bundle();
+                args.putParcelable("friend", friend);
+                SelectFriendFragment fragment = SelectFriendFragment.newInstance(args);
+                FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.commit();
+
                 // create intent for the new activity
                 // Intent intent = new Intent(context, OptionsActivity.class);
                 // serialize the country using parceler, use its short name as a key

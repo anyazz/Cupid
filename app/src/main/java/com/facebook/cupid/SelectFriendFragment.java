@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.cupid.models.User;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -29,13 +30,12 @@ public class SelectFriendFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    User friend;
     ImageView friendPic;
     TextView friendName;
     Uri picUrl;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,21 +43,10 @@ public class SelectFriendFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SelectFriendFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static SelectFriendFragment newInstance(String param1, String param2) {
+    public static SelectFriendFragment newInstance(Bundle bundle) {
         SelectFriendFragment fragment = new SelectFriendFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -65,8 +54,8 @@ public class SelectFriendFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Bundle bundle = getArguments();
+            friend = bundle.getParcelable("friend");
         }
     }
 
@@ -91,9 +80,11 @@ public class SelectFriendFragment extends Fragment {
         friendPic = (ImageView) view.findViewById(R.id.friendPic);
         friendName = (TextView) view.findViewById(R.id.friendName);
 
+        friendName.setText(friend.getName());
 
-        Glide.with(this)
-                .load(picUrl)
+
+         Glide.with(this)
+                .load(friend.getPictureUrl())
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(friendPic);
 
@@ -102,13 +93,14 @@ public class SelectFriendFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
+
 
     @Override
     public void onDetach() {
