@@ -1,4 +1,4 @@
-package com.facebook.cupid;
+package com.facebook.cupid.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;

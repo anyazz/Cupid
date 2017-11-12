@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.facebook.cupid.models.Friend;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {

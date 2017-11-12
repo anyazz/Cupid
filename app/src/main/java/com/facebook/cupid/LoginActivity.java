@@ -61,6 +61,12 @@ public class LoginActivity extends AppCompatActivity  {
 
         if (mAuth.getCurrentUser() != null) {
             CupidApplication.getFacebookFriends();
+
+            FirebaseUser user = mAuth.getCurrentUser();
+
+            //TODO check for first login
+            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
+
             onLoginSuccess();
         }
 
@@ -123,8 +129,8 @@ public class LoginActivity extends AppCompatActivity  {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            //Uri name = user.get
-                            CupidApplication.getFacebookFriends();
+                            //TODO check for first login
+                            CupidApplication.writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(), CupidApplication.getFacebookFriends());
 
                             onLoginSuccess();
                             //updateUI(user);
@@ -140,6 +146,7 @@ public class LoginActivity extends AppCompatActivity  {
                     }
                 });
     }
+
 
     public void onLoginSuccess() {
         Intent i = new Intent(context, MainActivity.class);
