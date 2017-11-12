@@ -12,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     FriendListFragment fragment;
     PagerAdapter pagerAdapter;
+
+    public DatabaseReference mDatabase;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         vpPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void onFragmentInteraction(Uri uri){
