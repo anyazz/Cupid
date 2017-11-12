@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity  {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+
         if (mAuth.getCurrentUser() != null) {
             CupidApplication.getFacebookFriends();
             onLoginSuccess();
@@ -106,6 +107,10 @@ public class LoginActivity extends AppCompatActivity  {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            onLoginSuccess();
+        }
        // updateUI(currentUser);
     }
 
@@ -122,11 +127,6 @@ public class LoginActivity extends AppCompatActivity  {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            //Uri name = user.get
-                            CupidApplication.getFacebookFriends();
-
-                            onLoginSuccess();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -142,9 +142,10 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     public void onLoginSuccess() {
-        Intent i = new Intent(context, MainActivity.class);
-        context.startActivity(i);
 
+        Intent i = new Intent(context, MainActivity.class);
+
+        context.startActivity(i);
     }
 
 

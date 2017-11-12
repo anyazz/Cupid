@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private TextView mTextMessage;
     Context context;
     FriendListFragment fragment;
-    ArrayList<Friend> friends;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
