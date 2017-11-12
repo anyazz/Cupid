@@ -15,6 +15,8 @@ import com.facebook.cupid.models.User;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by Emily on 11/11/2017.
  */
@@ -37,8 +39,15 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public void onBindViewHolder(FriendListAdapter.ViewHolder holder, int position) {
         User friend = friends.get(position);
         String name = friend.getName();
+        String bio = friend.getSchool();
+        if (bio != null) {
+            holder.tvBio.setText(bio);
+        }
         holder.tvName.setText(name);
-        Glide.with(context).load(friend.getPictureUrl()).into(holder.ivPicture);
+        Glide.with(context)
+                .load(friend.getPictureUrl())
+                .bitmapTransform(new CropCircleTransformation(context))
+                .into(holder.ivPicture);
     }
 
     @Override
@@ -49,10 +58,12 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvName;
         ImageView ivPicture;
+        TextView tvBio;
         public ViewHolder(View itemView){
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             ivPicture =  (ImageView) itemView.findViewById(R.id.ivPicture);
+            tvBio = (TextView) itemView.findViewById(R.id.tvBio);
             itemView.setOnClickListener(this);
         }// constructor
 
