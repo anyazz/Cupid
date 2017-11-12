@@ -3,6 +3,7 @@ package com.facebook.cupid;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class SuccessesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     public static RecyclerView rvMatches;
     ArrayList<Match> matchlist;
+    SuccessAdapter successAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -62,6 +64,7 @@ public class SuccessesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        matchlist = new ArrayList<Match>();
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -73,7 +76,11 @@ public class SuccessesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_successes, container, false);
+        View v = inflater.inflate(R.layout.fragment_successes, container, false);
+        rvMatches = (RecyclerView) v.findViewById(R.id.rvMatches);
+        rvMatches.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvMatches.setAdapter(successAdapter);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
