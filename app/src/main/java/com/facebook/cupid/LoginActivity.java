@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity  {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
         if (mAuth.getCurrentUser() != null) {
             Intent i = new Intent(context, MainActivity.class);
 
@@ -152,6 +153,10 @@ public class LoginActivity extends AppCompatActivity  {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.signOut();
+    }
 }
 
