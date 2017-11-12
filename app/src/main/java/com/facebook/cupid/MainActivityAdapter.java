@@ -1,25 +1,25 @@
 package com.facebook.cupid;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.cupid.models.Friend;
+import com.facebook.cupid.models.User;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by Emily on 11/11/2017.
  */
 
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
-    ArrayList<Friend> friends;
+    ArrayList<User> friends;
     Context context;
-    public MainActivityAdapter(ArrayList<Friend> friends){this.friends = friends;}
+    public MainActivityAdapter(ArrayList<User> friends){this.friends = friends;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -28,7 +28,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
     @Override
     public void onBindViewHolder(MainActivityAdapter.ViewHolder holder, int position) {
-        Friend friend = friends.get(position);
+        User friend = friends.get(position);
         String name = friend.getName();
         holder.tvName.setText(name);
     }

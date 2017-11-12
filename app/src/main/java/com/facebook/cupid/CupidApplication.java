@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.cupid.models.Friend;
 import com.facebook.cupid.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +27,7 @@ public class CupidApplication extends Application {
     // application context
     private static Context context;
     private static FacebookClient facebookClient;
-    private static ArrayList<Friend> facebookFriends;
+    private static ArrayList<User> facebookFriends;
     private static FirebaseUser mUser;
 
     private static boolean isNewUser;
@@ -67,50 +66,50 @@ public class CupidApplication extends Application {
         });
     }
 
-    public static ArrayList<Friend> getFacebookFriends() {
-            facebookFriends = new ArrayList<>();
+    public static ArrayList<User> getFacebookFriends() {
+            if (facebookFriends == null) {
+                facebookFriends = new ArrayList<>();
 
-            // start a new thread to execute the runnable codeblock
-            Thread thread = new Thread( ) {
-                @Override
-                public void run() {
+                // start a new thread to execute the runnable codeblock
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
 
-                    // the code to execute when the runnable is processed by a thread
-                    FacebookClient client = CupidApplication.getFacebookRestClient();
+                        // the code to execute when the runnable is processed by a thread
+                        FacebookClient client = CupidApplication.getFacebookRestClient();
 
-                    client.getFriendsUsingApp(new GraphRequest.Callback() {
-                        public void onCompleted(GraphResponse response) {
-                            // gets friends ids
-                            try {
-                                JSONArray friends = response.getJSONObject().getJSONArray("data");
-                                for (int i = 0; i < friends.length(); i++) {
-                                    Friend friend = Friend.fromJSON(friends.getJSONObject(i));
-                                    facebookFriends.add(friend);
+                        client.getFriendsUsingApp(new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+                                // gets friends ids
+                                try {
+                                    JSONArray friends = response.getJSONObject().getJSONArray("data");
+                                    for (int i = 0; i < friends.length(); i++) {
+                                        User friend = User.fromJSON(friends.getJSONObject(i));
+                                        facebookFriends.add(friend);
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-
-                            } catch(JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
-                    });
+                        });
+                    }
+                };
 
+                // start thread
+                thread.start();
+                // set first load to false for future getFacebookFriends() call
+
+                // wait for the thread to return the facebook API request
+                try {
+                    thread.join(0);
+                } catch (InterruptedException i) {
+                    i.getMessage();
                 }
-            };
-
-            // start thread
-            thread.start();
-            // set first load to false for future getFacebookFriends() call
-
-            // wait for the thread to return the facebook API request
-            try {
-                thread.join(0);
-            } catch (InterruptedException i) {
-                i.getMessage();
-            }
 
 
-            // register new user
-            //if (isNewUser) {
+                // register new user
+                //if (isNewUser) {
                 /*
                 long fbUid;
                 String name;
@@ -139,15 +138,12 @@ public class CupidApplication extends Application {
 
                 //FirebaseUser user = getmUser();
                 //writeNewUser(user.getProviderId(), user.getDisplayName(), user.getPhotoUrl().toString(),facebookFriends);
-            //}
-            // return your fb friends' ids
-            return facebookFriends;
-
+                //}
+            }
+                // return your fb friends' ids
+                return facebookFriends;
     }
 
-    public static ArrayList<Friend> getFriends() {
-        return facebookFriends;
-    }
 
     // facebook client singleton
     public static FacebookClient getFacebookRestClient() {
@@ -165,7 +161,7 @@ public class CupidApplication extends Application {
         return mDatabase;
     }
 
-    public static void writeNewUser(String userId, String name, String pictureUrl, ArrayList<Friend> friends) {
+    public static void writeNewUser(String userId, String name, String pictureUrl, ArrayList<User> friends) {
         User user = new User(name, pictureUrl, friends);
         DatabaseReference mDatabase = CupidApplication.getDatabase();
 

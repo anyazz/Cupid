@@ -5,17 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private TextView mTextMessage;
+    RecyclerView rvFriends;
     Context context;
     FriendListFragment fragment;
+    PagerAdapter pagerAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,19 +46,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-      //  friends = CupidApplication.getFacebookFriends();
-        Bundle args = new Bundle();
-        fragment = new FriendListFragment();
-        FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.commit();
-      //  adapter = new MainActivityAdapter(friends);
-      //  rvFriends = (RecyclerView) findViewById(R.id.rv_friends_list);
-      //  rvFriends.setLayoutManager(new LinearLayoutManager(this));
-      //  rvFriends.setAdapter(adapter);
-      //  mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        vpPager.setAdapter(pagerAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vpPager);
     }
 
     public void onFragmentInteraction(Uri uri){

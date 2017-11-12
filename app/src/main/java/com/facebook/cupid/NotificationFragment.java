@@ -1,45 +1,34 @@
 package com.facebook.cupid;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.cupid.models.User;
 
-import java.util.ArrayList;
-
-
-///**
-// * A simple {@link Fragment} subclass.
-// * Activities that contain this fragment must implement the
-// * {@link FriendListFragment.OnFragmentInteractionListener} interface
-// * to handle interaction events.
-// * Use the {@link FriendListFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
-public class FriendListFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link NotificationFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link NotificationFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class NotificationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    RecyclerView rvFriends;
-    ArrayList<User> friends;
-    FriendListAdapter adapter;
 
-    public FriendListFragment() {
+    public NotificationFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        friends = CupidApplication.getFacebookFriends();
-        adapter = new FriendListAdapter(friends);
 
     }
 
@@ -47,12 +36,7 @@ public class FriendListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_friend_list, container, false);
-        rvFriends = (RecyclerView) v.findViewById(R.id.rv_friends_list);
-        rvFriends.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvFriends.setAdapter(adapter);
-        return v;
-
+        return inflater.inflate(R.layout.fragment_notification, container, false);
     }
 
 
