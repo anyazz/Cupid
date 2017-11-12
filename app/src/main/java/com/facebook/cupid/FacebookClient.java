@@ -27,4 +27,10 @@ public class FacebookClient {
                 callback).executeAndWait();
     }
 
+    public void getMyInfo(GraphRequest.Callback callback) {
+        Bundle params = new Bundle();
+        params.putString("fields", "id,name,picture.type(large)");
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", params, HttpMethod.GET,
+                callback).executeAsync();
+    }
 }

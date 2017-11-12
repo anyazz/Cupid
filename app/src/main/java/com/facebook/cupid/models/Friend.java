@@ -1,4 +1,4 @@
-package com.facebook.cupid;
+package com.facebook.cupid.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +18,24 @@ public class Friend implements Parcelable{
     private String pictureUrl;
 
     public Friend(){}
+
+    protected Friend(Parcel in) {
+        fbUserID = in.readLong();
+        name = in.readString();
+        pictureUrl = in.readString();
+    }
+
+    public static final Creator<Friend> CREATOR = new Creator<Friend>() {
+        @Override
+        public Friend createFromParcel(Parcel in) {
+            return new Friend(in);
+        }
+
+        @Override
+        public Friend[] newArray(int size) {
+            return new Friend[size];
+        }
+    };
 
     // for retrieving facebook data
     public static Friend fromJSON(JSONObject json) {
