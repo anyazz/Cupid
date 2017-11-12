@@ -8,8 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Emily on 11/11/2017.
@@ -34,7 +39,12 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
         Friend friend = friends.get(position);
         String name = friend.getName();
         holder.tvName.setText(name);
-        Glide.with(context).load(friend.getPictureUrl()).into(holder.ivPicture);
+        //Glide.with(context).load(friend.getPictureUrl()).into(holder.ivPicture);
+        Glide.with(context)
+                .load(friend.getPictureUrl())
+                .bitmapTransform(new CropCircleTransformation(context))
+                .into(holder.ivPicture);
+
     }
 
     @Override
