@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by Emily on 11/11/2017.
  */
 // object class
-public class Friend{
+public class Friend implements Parcelable{
     // name
     // picture
     private long fbUserID;
@@ -56,5 +56,17 @@ public class Friend{
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeLong(this.fbUserID);
+        dest.writeString(this.pictureUrl);
     }
 }

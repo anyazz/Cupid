@@ -1,6 +1,8 @@
 package com.facebook.cupid;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +57,13 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             if (position != android.support.v7.widget.RecyclerView.NO_POSITION) {
                 // get the movie at the position, this won't work if the class is static
                 Friend friend = friends.get(position);
+                Bundle args = new Bundle();
+                args.putParcelable("friend", friend);
+                SelectFriendFragment fragment = SelectFriendFragment.newInstance(args);
+                FragmentTransaction transaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.commit();
+
                 // create intent for the new activity
                 // Intent intent = new Intent(context, OptionsActivity.class);
                 // serialize the country using parceler, use its short name as a key
