@@ -31,6 +31,7 @@ dependencies {
 
 
 
+    compile 'org.parceler:parceler-api:1.1.6'
     compile 'com.google.firebase:firebase-core:11.0.4'
     compile 'com.google.firebase:firebase-auth:11.0.4'
     compile 'com.google.android.gms:play-services:11.0.4'
@@ -44,6 +45,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.firebase:firebase-database:11.0.4'
+
     compile 'com.daprlabs.aaron:swipedeck:2.0.6'
 
 

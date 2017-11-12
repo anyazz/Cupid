@@ -15,7 +15,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.cupid.models.CustomViewPager;
 
+import com.facebook.cupid.models.User;
+
 public class MainActivity extends AppCompatActivity {
+    private User friend1;
+
+    public User getFriend1() {
+        return friend1;
+    }
+
+    public void setFriend1(User friend1) {
+        this.friend1 = friend1;
+    }
 
     private TextView mTextMessage;
     RecyclerView rvFriends;

@@ -24,7 +24,6 @@ public class User implements Parcelable {
     public int age;
     public ArrayList<User> facebookFriends;
 
-
     public User(){}
 
     protected User(Parcel in) {
@@ -126,4 +125,5 @@ public class User implements Parcelable {
         dest.writeLong(this.fbUserID);
         dest.writeString(this.pictureUrl);
     }
+
 }
