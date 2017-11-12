@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.facebook.cupid.models.CustomViewPager;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
 
-        ViewPager vpPager = (ViewPager)findViewById(R.id.viewpager);
+        CustomViewPager vpPager = (CustomViewPager) findViewById(R.id.customviewpager);
+        vpPager.setPagingEnabled(false);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
