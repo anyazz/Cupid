@@ -45,12 +45,10 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.firebase:firebase-database:11.0.4'
-<<<<<<< HEAD
-=======
+
     compile 'com.daprlabs.aaron:swipedeck:2.0.6'
 
 
->>>>>>> f9ba88e2fbf9af5cbe9341524f9b25e0dd30bc8d
     testCompile 'junit:junit:4.12'
 }
 
