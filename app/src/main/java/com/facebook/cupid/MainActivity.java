@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     MainActivityAdapter adapter;
-    ArrayList<Friend> friends;
+    ArrayList<User> friends;
     private TextView mTextMessage;
     RecyclerView rvFriends;
     Context context;
@@ -48,12 +49,23 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         friends = CupidApplication.getFacebookFriends();
         adapter = new MainActivityAdapter(friends);
+
         rvFriends = (RecyclerView) findViewById(R.id.rv_friends_list);
         rvFriends.setLayoutManager(new LinearLayoutManager(this));
         rvFriends.setAdapter(adapter);
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    public ArrayList<User> sortFriends(ArrayList<User> friends) {
+        Collections.sort(friends, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return o1.getSchool().compareToIgnoreCase(o2.getSchool());
+            }
+        });
+        return friends;
     }
 
 }

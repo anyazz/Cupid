@@ -22,9 +22,18 @@ public class FacebookClient {
 
     public void getFriendsUsingApp(GraphRequest.Callback callback) {
         Bundle params = new Bundle();
-        params.putString("fields", "id,name,picture.type(large)");
+        params.putString("fields", "id,name,picture.type(large),education");
         new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/friends", params, HttpMethod.GET,
                 callback).executeAndWait();
     }
+
+    public void getMyInfo(GraphRequest.Callback callback) {
+        Bundle params = new Bundle();
+        params.putString("fields", "id,name,picture.type(large),education");
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", params, HttpMethod.GET,
+                callback).executeAndWait();
+    }
+
+
 
 }

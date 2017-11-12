@@ -3,11 +3,8 @@ package com.facebook.cupid;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,9 +16,9 @@ import java.util.ArrayList;
  */
 
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
-    ArrayList<Friend> friends;
+    ArrayList<User> friends;
     Context context;
-    public MainActivityAdapter(ArrayList<Friend> friends){this.friends = friends;}
+    public MainActivityAdapter(ArrayList<User> friends){this.friends = friends;}
     @Override
     public MainActivityAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -32,7 +29,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
     @Override
     public void onBindViewHolder(MainActivityAdapter.ViewHolder holder, int position) {
-        Friend friend = friends.get(position);
+        User friend = friends.get(position);
         String name = friend.getName();
         holder.tvName.setText(name);
     }
@@ -58,7 +55,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
             // make sure the position is valid, i.e. actually exists in the view
             if (position != android.support.v7.widget.RecyclerView.NO_POSITION) {
                 // get the movie at the position, this won't work if the class is static
-                Friend friend = friends.get(position);
+                User friend = friends.get(position);
                 // create intent for the new activity
                 // Intent intent = new Intent(context, OptionsActivity.class);
                 // serialize the country using parceler, use its short name as a key
