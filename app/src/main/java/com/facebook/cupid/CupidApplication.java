@@ -27,19 +27,14 @@ public class CupidApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        facebookFriends = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
     }
 
     public static ArrayList<Friend> getFacebookFriends() {
-        if (facebookFriends.size() != 0)
-        {
-            return facebookFriends;
-        }
-        else {
+            facebookFriends = new ArrayList<>();
 
-            // start a new thread to execute the runnable codeblock
+        // start a new thread to execute the runnable codeblock
             Thread thread = new Thread( ) {
                 @Override
                 public void run() {
@@ -77,9 +72,12 @@ public class CupidApplication extends Application {
             }
             // return your fb friends' ids
             return facebookFriends;
-        }
+
     }
 
+    public static ArrayList<Friend> getFriends() {
+        return facebookFriends;
+    }
 
     // facebook client singleton
     public static FacebookClient getFacebookRestClient() {
