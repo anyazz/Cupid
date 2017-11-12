@@ -1,18 +1,25 @@
 package com.facebook.cupid;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.cupid.models.Suggestion;
 import com.facebook.cupid.models.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.parceler.Parcels;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
 public class MatchActivity extends AppCompatActivity {
@@ -56,4 +63,23 @@ public class MatchActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        View v = super.onCreateView(name, context, attrs);
+        User user_1 = Parcels.unwrap(getIntent().getParcelableExtra("friend1"));
+        User user_2 = Parcels.unwrap(getIntent().getParcelableExtra("friend2"));
+        Glide.with(this)
+                .load(user_1.pictureUrl)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(ivFirst);
+        Glide.with(this)
+                .load(user_2.pictureUrl)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(ivSecond);
+        tvFirstName.setText(user_1.name);
+        tvFirstBio.setText(user_1.school + user_1.age);
+        tvSecondName.setText(user_2.name);
+        tvSecondBio.setText(user_2.school + user_2.age);
+        return v;
+    }
 }

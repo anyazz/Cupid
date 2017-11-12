@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.Profile;
 import com.facebook.cupid.models.Suggestion;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +56,7 @@ public class NotificationFragment extends Fragment {
 
                 Suggestion temp = new Suggestion(f1, f2, f1a, f2a, message, mm);
 
-                long myId = Long.parseLong(CupidApplication.getmUser().getProviderId());
+                long myId = Long.parseLong(Profile.getCurrentProfile().getId());
 
                 if(myId == f1 || myId == f2){
                     suggestions.add(temp);
