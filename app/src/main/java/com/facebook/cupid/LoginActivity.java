@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity  {
         }
 
         if (mAuth.getCurrentUser() != null) {
+            CupidApplication.getFacebookFriends();
             onLoginSuccess();
         }
 
@@ -148,7 +149,6 @@ public class LoginActivity extends AppCompatActivity  {
 
     public void onLoginSuccess() {
         Intent i = new Intent(context, MainActivity.class);
-
         context.startActivity(i);
 
     }
