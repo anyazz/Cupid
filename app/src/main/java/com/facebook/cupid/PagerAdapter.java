@@ -18,6 +18,7 @@ public class PagerAdapter extends FragmentPagerAdapter{
         friendListFragment = new FriendListFragment();
         notificationFragment = new NotificationFragment();
         suggestionsFragment = new SuggestionsFragment();
+        notificationFragment = new NotificationFragment();
     }
     @Override
     public Fragment getItem(int position) {

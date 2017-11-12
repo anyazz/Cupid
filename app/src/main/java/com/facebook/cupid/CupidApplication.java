@@ -175,7 +175,7 @@ public class CupidApplication extends Application {
     public static FirebaseUser getmUser() {
         if (mUser == null) {
             getmAuth();
-            mAuth.getCurrentUser();
+            mUser = mAuth.getCurrentUser();
         }
         return mUser;
     }
