@@ -16,10 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class MatchActivity extends AppCompatActivity {
-    public ImageView imFirst;
+    public ImageView ivFirst;
     public TextView tvFirstName;
     public  TextView tvFirstBio;
-    public ImageView imSecond;
+    public ImageView ivSecond;
     public TextView tvSecondName;
     public  TextView tvSecondBio;
     public Button btComment;
@@ -35,10 +35,10 @@ public class MatchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        imFirst = (ImageView) findViewById(R.id.imFirst);
+        ivFirst = (ImageView) findViewById(R.id.ivFirst);
         tvFirstName = (TextView) findViewById(R.id.tvFirstName);
         tvFirstBio = (TextView) findViewById(R.id.tvFirstBio);
-        imSecond = (ImageView) findViewById(R.id.imSecond);
+        ivSecond = (ImageView) findViewById(R.id.ivSecond);
         tvSecondName = (TextView) findViewById(R.id.tvSecondName);
         tvSecondBio = (TextView) findViewById(R.id.tvSecondBio);
         etComment = (EditText) findViewById(R.id.etComment);

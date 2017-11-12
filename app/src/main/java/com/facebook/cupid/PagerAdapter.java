@@ -10,14 +10,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class PagerAdapter extends FragmentPagerAdapter{
     FriendListFragment friendListFragment;
-    ProfileFragment profileFragment;
-    NotificationFragment notificationFragment;
+    SuccessesFragment successesFragment;
+    SuggestionsFragment suggestionsFragment;
     private String tabTitles[] = new String [] {"Home", "Profile", "Notifications"};
     public PagerAdapter(FragmentManager supportFragmentManager){
         super(supportFragmentManager);
         friendListFragment = new FriendListFragment();
-        profileFragment = new ProfileFragment();
-        notificationFragment = new NotificationFragment();
+        successesFragment = new SuccessesFragment();
+        suggestionsFragment = new SuggestionsFragment();
     }
     @Override
     public Fragment getItem(int position) {
@@ -25,10 +25,10 @@ public class PagerAdapter extends FragmentPagerAdapter{
             return friendListFragment;
             //return new HomeTimelineFragment(); //timeline fragment = getTimelineInstance; return timeline fragment
         }else if(position == 1){
-            return profileFragment;
+            return successesFragment;
             // return new MentionTimelineFragment();
         }else if(position == 2){
-            return notificationFragment;
+            return suggestionsFragment;
         }else{
             return null;
         }

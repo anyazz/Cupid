@@ -38,7 +38,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Suggestion suggestion = suggestions.get(position);
+        final Suggestion suggestion = suggestions.get(position);
         long myId = Long.parseLong(CupidApplication.getmUser().getProviderId());
         long friendId;
 
@@ -69,6 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                 Bundle args = new Bundle();
                 args.putParcelable("date", date);
+                args.putString("message",suggestion.message);
 
             }
         });
